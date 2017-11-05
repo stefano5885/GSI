@@ -10,11 +10,14 @@ namespace GSI.Migrations.DefaultDB
 
             this.CreateTableWithId32("Settings", "SettingId", s => s
                 .WithColumn("SettingKey").AsString(255).NotNullable()
-                .WithColumn("SettingValue").AsString(255).Nullable().WithDefaultValue(null));
+                .WithColumn("TenantId").AsInt32().NotNullable().WithDefaultValue(1)
+                .WithColumn("SettingValue").AsString(255).Nullable().WithDefaultValue(null)
+                                    );
 
             Create.Index("UQ_Settings_UID_SettingKey")
                 .OnTable("Settings")
                 .OnColumn("SettingKey").Ascending()
+                  .OnColumn("TenantId").Ascending()
                 .WithOptions().Unique();
             
         }

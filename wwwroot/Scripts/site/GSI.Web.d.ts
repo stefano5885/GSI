@@ -231,6 +231,46 @@ declare namespace GSI.Administration {
     }
 }
 declare namespace GSI.Administration {
+    class TenantsForm extends Serenity.PrefixedContext {
+        static formKey: string;
+    }
+    interface TenantsForm {
+        TenantName: Serenity.StringEditor;
+    }
+}
+declare namespace GSI.Administration {
+    interface TenantsRow {
+        TenantId?: number;
+        TenantName?: string;
+    }
+    namespace TenantsRow {
+        const idProperty = "TenantId";
+        const nameProperty = "TenantName";
+        const localTextPrefix = "Administration.Tenants";
+        namespace Fields {
+            const TenantId: any;
+            const TenantName: any;
+        }
+    }
+}
+declare namespace GSI.Administration {
+    namespace TenantsService {
+        const baseUrl = "Administration/Tenants";
+        function Create(request: Serenity.SaveRequest<TenantsRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Update(request: Serenity.SaveRequest<TenantsRow>, onSuccess?: (response: Serenity.SaveResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Delete(request: Serenity.DeleteRequest, onSuccess?: (response: Serenity.DeleteResponse) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function Retrieve(request: Serenity.RetrieveRequest, onSuccess?: (response: Serenity.RetrieveResponse<TenantsRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        function List(request: Serenity.ListRequest, onSuccess?: (response: Serenity.ListResponse<TenantsRow>) => void, opt?: Q.ServiceOptions<any>): JQueryXHR;
+        namespace Methods {
+            const Create: string;
+            const Update: string;
+            const Delete: string;
+            const Retrieve: string;
+            const List: string;
+        }
+    }
+}
+declare namespace GSI.Administration {
     interface TranslationItem {
         Key?: string;
         SourceText?: string;
@@ -830,6 +870,26 @@ declare namespace GSI.Administration {
     class SettingsGrid extends Serenity.EntityGrid<SettingsRow, any> {
         protected getColumnsKey(): string;
         protected getDialogType(): typeof SettingsDialog;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getService(): string;
+        constructor(container: JQuery);
+    }
+}
+declare namespace GSI.Administration {
+    class TenantsDialog extends Serenity.EntityDialog<TenantsRow, any> {
+        protected getFormKey(): string;
+        protected getIdProperty(): string;
+        protected getLocalTextPrefix(): string;
+        protected getNameProperty(): string;
+        protected getService(): string;
+        protected form: TenantsForm;
+    }
+}
+declare namespace GSI.Administration {
+    class TenantsGrid extends Serenity.EntityGrid<TenantsRow, any> {
+        protected getColumnsKey(): string;
+        protected getDialogType(): typeof TenantsDialog;
         protected getIdProperty(): string;
         protected getLocalTextPrefix(): string;
         protected getService(): string;

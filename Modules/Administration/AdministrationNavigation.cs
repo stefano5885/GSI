@@ -8,4 +8,5 @@ using Administration = GSI.Administration.Pages;
 [assembly: NavigationLink(9000, "Administration/Sergen", typeof(Administration.SergenController), icon: "fa-magic")]
 [assembly: NavigationLink(9000, "Administration/Application Settings", typeof(MyPages.SettingsController), icon: "fa-cogs")]
 [assembly: NavigationLink(9000, "Administration/Roles", typeof(Administration.RoleController), icon: "fa-lock")]
+[assembly: NavigationLink(9000, "Administration/Tenants", typeof(MyPages.TenantsController), icon: "fa-industry")]
 [assembly: NavigationLink(9000, "Administration/User Management", typeof(Administration.UserController), icon: "fa-users")]

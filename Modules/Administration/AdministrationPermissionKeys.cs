@@ -16,5 +16,8 @@ namespace GSI.Administration
 
         [Description("Application Settings")]
         public const string Settings = "Administration:Settings";
+
+        [Description("Tenants")]
+        public const string Tenants = "Administration:Tenants";
     }
 }

@@ -12,6 +12,12 @@
           "Identifier": "Settings",
           "Module": "Administration",
           "PermissionKey": "Administration:Settings"
+        },
+        {
+          "Tablename": "Tenants",
+          "Identifier": "Tenants",
+          "Module": "Administration",
+          "PermissionKey": "Administration:Tenants"
         }
       ]
     }

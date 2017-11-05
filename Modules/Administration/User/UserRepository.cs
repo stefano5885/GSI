@@ -184,7 +184,9 @@ namespace GSI.Administration.Repositories
 
                 if (IsUpdate)
                 {
-                    CheckPublicDemo(Row.UserId);
+                    var user = (UserDefinition)Authorization.UserDefinition;
+                    if (Old.TenantId != user.TenantId)
+                        Authorization.ValidatePermission(PermissionKeys.Tenants);
 
                     if (Row.IsAssigned(fld.Password) && !Row.Password.IsEmptyOrNull())
                         password = Row.Password = ValidatePassword(Old.Username, Row.Password, false);
@@ -204,6 +206,23 @@ namespace GSI.Administration.Repositories
                 }
             }
 
+            //protected override void SetInternalFields()
+            //{
+            //    base.SetInternalFields();
+
+            //    if (IsCreate)
+            //    {
+            //        Row.Source = "site";
+            //        Row.IsActive = Row.IsActive ?? 1;
+            //    }
+
+            //    if (IsCreate || !Row.Password.IsEmptyOrNull())
+            //    {
+            //        string salt = null;
+            //        Row.PasswordHash = GenerateHash(password, ref salt);
+            //        Row.PasswordSalt = salt;
+            //    }
+            //}
             protected override void SetInternalFields()
             {
                 base.SetInternalFields();
@@ -212,6 +231,12 @@ namespace GSI.Administration.Repositories
                 {
                     Row.Source = "site";
                     Row.IsActive = Row.IsActive ?? 1;
+                    if (!Authorization.HasPermission(Administration.PermissionKeys.Tenants) ||
+                        Row.TenantId == null)
+                    {
+                        Row.TenantId = ((UserDefinition)Authorization.UserDefinition)
+                            .TenantId;
+                    }
                 }
 
                 if (IsCreate || !Row.Password.IsEmptyOrNull())
@@ -241,18 +266,53 @@ namespace GSI.Administration.Repositories
             return CalculateHash(password, salt);
         }
 
+        //private class MyDeleteHandler : DeleteRequestHandler<MyRow>
+        //{
+        //    protected override void ValidateRequest()
+        //    {
+        //        base.ValidateRequest();
+
+        //        CheckPublicDemo(Row.UserId);
+        //    }
+        //}
+
         private class MyDeleteHandler : DeleteRequestHandler<MyRow>
         {
             protected override void ValidateRequest()
             {
                 base.ValidateRequest();
-
-                CheckPublicDemo(Row.UserId);
+ 
+                var user = (UserDefinition)Authorization.UserDefinition;
+                if (Row.TenantId != user.TenantId)
+                    Authorization.ValidatePermission(PermissionKeys.Tenants);
             }
         }
 
-        private class MyUndeleteHandler : UndeleteRequestHandler<MyRow> { }
+        private class MyUndeleteHandler : UndeleteRequestHandler<MyRow>
+        {
+            protected override void ValidateRequest()
+            {
+                base.ValidateRequest();
+
+                var user = (UserDefinition)Authorization.UserDefinition;
+                if (Row.TenantId != user.TenantId)
+                    Authorization.ValidatePermission(PermissionKeys.Tenants);
+            }
+        }
+
+
         private class MyRetrieveHandler : RetrieveRequestHandler<MyRow> { }
-        private class MyListHandler : ListRequestHandler<MyRow> { }
+        private class MyListHandler : ListRequestHandler<MyRow> { 
+            
+            protected override void ApplyFilters(SqlQuery query)
+            {
+                base.ApplyFilters(query);
+
+                var user = (UserDefinition)Authorization.UserDefinition;
+                if (!Authorization.HasPermission(PermissionKeys.Tenants))
+                    query.Where(fld.TenantId == user.TenantId);
+            }
+
+        }
     }
 }

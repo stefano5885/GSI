@@ -276,6 +276,74 @@ var GSI;
 (function (GSI) {
     var Administration;
     (function (Administration) {
+        var TenantsForm = /** @class */ (function (_super) {
+            __extends(TenantsForm, _super);
+            function TenantsForm() {
+                return _super !== null && _super.apply(this, arguments) || this;
+            }
+            TenantsForm.formKey = 'Administration.Tenants';
+            return TenantsForm;
+        }(Serenity.PrefixedContext));
+        Administration.TenantsForm = TenantsForm;
+        [,
+            ['TenantName', function () { return Serenity.StringEditor; }]
+        ].forEach(function (x) { return Object.defineProperty(TenantsForm.prototype, x[0], {
+            get: function () {
+                return this.w(x[0], x[1]());
+            },
+            enumerable: true,
+            configurable: true
+        }); });
+    })(Administration = GSI.Administration || (GSI.Administration = {}));
+})(GSI || (GSI = {}));
+var GSI;
+(function (GSI) {
+    var Administration;
+    (function (Administration) {
+        var TenantsRow;
+        (function (TenantsRow) {
+            TenantsRow.idProperty = 'TenantId';
+            TenantsRow.nameProperty = 'TenantName';
+            TenantsRow.localTextPrefix = 'Administration.Tenants';
+            var Fields;
+            (function (Fields) {
+            })(Fields = TenantsRow.Fields || (TenantsRow.Fields = {}));
+            [
+                'TenantId',
+                'TenantName'
+            ].forEach(function (x) { return Fields[x] = x; });
+        })(TenantsRow = Administration.TenantsRow || (Administration.TenantsRow = {}));
+    })(Administration = GSI.Administration || (GSI.Administration = {}));
+})(GSI || (GSI = {}));
+var GSI;
+(function (GSI) {
+    var Administration;
+    (function (Administration) {
+        var TenantsService;
+        (function (TenantsService) {
+            TenantsService.baseUrl = 'Administration/Tenants';
+            var Methods;
+            (function (Methods) {
+            })(Methods = TenantsService.Methods || (TenantsService.Methods = {}));
+            [
+                'Create',
+                'Update',
+                'Delete',
+                'Retrieve',
+                'List'
+            ].forEach(function (x) {
+                TenantsService[x] = function (r, s, o) {
+                    return Q.serviceRequest(TenantsService.baseUrl + '/' + x, r, s, o);
+                };
+                Methods[x] = TenantsService.baseUrl + '/' + x;
+            });
+        })(TenantsService = Administration.TenantsService || (Administration.TenantsService = {}));
+    })(Administration = GSI.Administration || (GSI.Administration = {}));
+})(GSI || (GSI = {}));
+var GSI;
+(function (GSI) {
+    var Administration;
+    (function (Administration) {
         var TranslationService;
         (function (TranslationService) {
             TranslationService.baseUrl = 'Administration/Translation';
@@ -1020,6 +1088,53 @@ var GSI;
             return SettingsGrid;
         }(Serenity.EntityGrid));
         Administration.SettingsGrid = SettingsGrid;
+    })(Administration = GSI.Administration || (GSI.Administration = {}));
+})(GSI || (GSI = {}));
+var GSI;
+(function (GSI) {
+    var Administration;
+    (function (Administration) {
+        var TenantsDialog = /** @class */ (function (_super) {
+            __extends(TenantsDialog, _super);
+            function TenantsDialog() {
+                var _this = _super !== null && _super.apply(this, arguments) || this;
+                _this.form = new Administration.TenantsForm(_this.idPrefix);
+                return _this;
+            }
+            TenantsDialog.prototype.getFormKey = function () { return Administration.TenantsForm.formKey; };
+            TenantsDialog.prototype.getIdProperty = function () { return Administration.TenantsRow.idProperty; };
+            TenantsDialog.prototype.getLocalTextPrefix = function () { return Administration.TenantsRow.localTextPrefix; };
+            TenantsDialog.prototype.getNameProperty = function () { return Administration.TenantsRow.nameProperty; };
+            TenantsDialog.prototype.getService = function () { return Administration.TenantsService.baseUrl; };
+            TenantsDialog = __decorate([
+                Serenity.Decorators.registerClass(),
+                Serenity.Decorators.responsive()
+            ], TenantsDialog);
+            return TenantsDialog;
+        }(Serenity.EntityDialog));
+        Administration.TenantsDialog = TenantsDialog;
+    })(Administration = GSI.Administration || (GSI.Administration = {}));
+})(GSI || (GSI = {}));
+var GSI;
+(function (GSI) {
+    var Administration;
+    (function (Administration) {
+        var TenantsGrid = /** @class */ (function (_super) {
+            __extends(TenantsGrid, _super);
+            function TenantsGrid(container) {
+                return _super.call(this, container) || this;
+            }
+            TenantsGrid.prototype.getColumnsKey = function () { return 'Administration.Tenants'; };
+            TenantsGrid.prototype.getDialogType = function () { return Administration.TenantsDialog; };
+            TenantsGrid.prototype.getIdProperty = function () { return Administration.TenantsRow.idProperty; };
+            TenantsGrid.prototype.getLocalTextPrefix = function () { return Administration.TenantsRow.localTextPrefix; };
+            TenantsGrid.prototype.getService = function () { return Administration.TenantsService.baseUrl; };
+            TenantsGrid = __decorate([
+                Serenity.Decorators.registerClass()
+            ], TenantsGrid);
+            return TenantsGrid;
+        }(Serenity.EntityGrid));
+        Administration.TenantsGrid = TenantsGrid;
     })(Administration = GSI.Administration || (GSI.Administration = {}));
 })(GSI || (GSI = {}));
 var GSI;
