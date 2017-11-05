@@ -1,0 +1,14 @@
+﻿<Properties StartupConfiguration="{5296472F-1EB3-4E48-B47D-C2C1574E6C15}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Stato di GSI.Web">
+    <Files>
+      <File FileName="Stato di GSI.Web" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.GSI.Web PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

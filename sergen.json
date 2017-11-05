@@ -1,0 +1,23 @@
+{
+  "RootNamespace": "GSI",
+  "ServerTypings": {
+    "Assemblies": []
+  },
+  "Connections": [
+    {
+      "Key": "Default",
+      "Tables": [
+        {
+          "Tablename": "Settings",
+          "Identifier": "Settings",
+          "Module": "Administration",
+          "PermissionKey": "Administration:Settings"
+        }
+      ]
+    }
+  ],
+  "BaseRowClasses": [],
+  "RemoveForeignFields": [],
+  "CustomGenerate": {},
+  "CustomSettings": {}
+}
